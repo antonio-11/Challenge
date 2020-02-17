@@ -32,6 +32,7 @@ public class InvestController {
 		//shows cash and total shares
 		System.out.println( balance.getInitialBalances().getCash());
 		System.out.println( balance.getInitialBalances().getIssuers().get(0).getTotalShares() );
+		// test
 		
 		return new ResponseEntity<>("hola", HttpStatus.OK);
 	}
