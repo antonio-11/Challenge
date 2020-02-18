@@ -12,9 +12,16 @@ public class Buy extends Order {
 	}
 
 	@Override
-	public int calculateTotalShare(int iusserTotalShare) {
-		
-		return iusserTotalShare + super.getTotalShares();
+	public int calculateTotalShare(InitialBalances initialbalances, int indexIssuer) {
+		// si el indexIssuer es -1, entonces se crea con los datos de la orden
+		if (indexIssuer < 0) {
+			initialbalances.getIssuers().add(new IssuersData(super.getIssuerName(),
+					                                        super.getTotalShares(),
+					                                        super.getSharePrice()));
+			return -1;
+		}
+		//si existe, entonces se obtienen las existencias y se suman las compras de la orden 		
+		return initialbalances.getIssuers().get(indexIssuer).getTotalShares() + super.getTotalShares();
 	}
 
 	@Override

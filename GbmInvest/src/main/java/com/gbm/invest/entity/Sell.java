@@ -11,12 +11,20 @@ public class Sell extends Order{
 	}
 
 	@Override
-	public int calculateTotalShare(int iusserTotalShare) {
-		return iusserTotalShare - super.getTotalShares();
+	public int calculateTotalShare(InitialBalances initialBalance, int indexIssuer) {
+		// en ventas no hay caso donde el indexIssuer sea -1
+		
+		//si el total es -1, se vendió todo y se quita de la lista del issuers
+		int total = initialBalance.getIssuers().get(indexIssuer).getTotalShares() - super.getTotalShares();	
+		if (total == 0) {
+			initialBalance.getIssuers().remove(indexIssuer);
+			return -1;
+		}
+		return total;
 	}
 
 	@Override
-	public double calculateCash(double issuerCash) {
+	public double calculateCash(double issuerCash) {		
 		return  issuerCash + (super.getTotalShares() * super.getSharePrice() );
 	}
 
@@ -29,6 +37,7 @@ public class Sell extends Order{
 	public Boolean validate(InitialBalances initialBalances) {
 		if (!initialBalances.getIssuers().isEmpty() ) {
 			for (IssuersData i: initialBalances.getIssuers()) {
+				// validamos que hayan en existencia para el issuer en cuestion
 				if (i.getIssuerName().contentEquals(super.getIssuerName()) ) {
 					return isValidateTotalShare(i.getTotalShares() );
 				}
