@@ -2,9 +2,11 @@ package com.gbm.invest.entity;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
+@Component
 public class InitialBalances {
 	
 	@JsonProperty("cash")

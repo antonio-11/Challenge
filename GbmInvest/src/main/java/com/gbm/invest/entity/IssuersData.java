@@ -4,37 +4,43 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class IssuersData {
 	
-	@JsonProperty("IssuerName")
-	private String IssuerName;
+	@JsonProperty("issuerName")
+	private String issuerName;
 		
-	@JsonProperty("TotalShares")
-	private int TotalShares;
+	@JsonProperty("totalShares")
+	private int totalShares;
 	
-	@JsonProperty("SharePrice")
-	private double SharePrice;
+	@JsonProperty("sharePrice")
+	private double sharePrice;
+	
+	public IssuersData(String issuerName, int totalShares, double sharePrice) {
+		this.issuerName = issuerName;
+		this.totalShares = totalShares;
+		this.sharePrice = sharePrice;
+	};
 
 	public String getIssuerName() {
-		return IssuerName;
+		return issuerName;
 	}
 
 	public void setIssuerName(String issuerName) {
-		IssuerName = issuerName;
+		this.issuerName = issuerName;
 	}
 
 	public int getTotalShares() {
-		return TotalShares;
+		return this.totalShares;
 	}
 
 	public void setTotalShares(int totalShares) {
-		TotalShares = totalShares;
+		this.totalShares = totalShares;
 	}
 
 	public double getSharePrice() {
-		return SharePrice;
+		return this.sharePrice;
 	}
 
 	public void setSharePrice(double sharePrice) {
-		SharePrice = sharePrice;
+		this.sharePrice = sharePrice;
 	}
 	
 }

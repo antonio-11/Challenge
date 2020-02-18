@@ -1,8 +1,9 @@
 package com.gbm.invest.entity;
 
-
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 public abstract class Order implements ICalculate, IValidate{
 	
 	@JsonProperty("timestamp")
-	private Date timestamp;
+	private long timestamp;
 		
 	@JsonProperty("operation")
 	private String operation;
@@ -30,12 +31,23 @@ public abstract class Order implements ICalculate, IValidate{
 	
 	@JsonProperty("SharePrice")
 	private double SharePrice;
+	
+	@JsonIgnore
+	private String errorMessage;
+	
+	public String getErrorMessage() {
+		return errorMessage;
+	}
 
-	public Date getTimestamp() {
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	public long getIntTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(Date timestamp) {
+	public void setIntTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
 
@@ -70,5 +82,14 @@ public abstract class Order implements ICalculate, IValidate{
 	public void setSharePrice(double SharePrice) {
 		this.SharePrice = SharePrice;
 	}
+	
+	public Date getCustomDateTimestamp() {		
+		return new Date(timestamp * 1000);
+	}
+	
+	public String getCustomStringTimeStamp() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+		return dateFormat.format(getCustomDateTimestamp()) ;
+	}		
 
 }

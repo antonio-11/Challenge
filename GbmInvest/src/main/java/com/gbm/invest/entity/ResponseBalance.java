@@ -2,6 +2,9 @@ package com.gbm.invest.entity;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class ResponseBalance {
 	private double cash;
 	private List<IssuersData> issuers;
