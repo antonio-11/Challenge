@@ -3,18 +3,22 @@ package com.gbm.invest.entity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.stereotype.Repository;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import com.gbm.invest.validation.IValidate;
 
 @JsonTypeInfo(property = "operation", use = Id.NAME, include = As.PROPERTY)
 @JsonSubTypes({
 	@JsonSubTypes.Type(value = Buy.class, name="BUY"),
 	@JsonSubTypes.Type(value = Sell.class, name="SELL")
 })
+@Repository
 public abstract class Order implements ICalculate, IValidate{
 	
 	@JsonProperty("timestamp")
@@ -41,14 +45,6 @@ public abstract class Order implements ICalculate, IValidate{
 
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
-	}
-
-	public long getIntTimestamp() {
-		return timestamp;
-	}
-
-	public void setIntTimestamp(long timestamp) {
-		this.timestamp = timestamp;
 	}
 
 	public String getOperation() {
@@ -83,13 +79,24 @@ public abstract class Order implements ICalculate, IValidate{
 		this.SharePrice = SharePrice;
 	}
 	
+	public long getTimestamp() {
+		return timestamp;
+	}
+	
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
+	
 	public Date getCustomDateTimestamp() {		
 		return new Date(timestamp * 1000);
 	}
 	
-	public String getCustomStringTimeStamp() {
+	public String getTimeStringTimeStamp() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		return dateFormat.format(getCustomDateTimestamp()) ;
-	}		
-
+	}	
+	
+	public String toString () {
+		return toString();
+	}
 }

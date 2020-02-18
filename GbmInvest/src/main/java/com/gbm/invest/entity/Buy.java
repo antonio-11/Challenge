@@ -35,8 +35,14 @@ public class Buy extends Order {
 	}
 	
 	@Override
-	public Boolean validate(InitialBalances initialBalance) {		
+	public boolean validate(InitialBalances initialBalance, Order order) {		
 		return isValidateBalance(initialBalance.getCash()); 
+	}
+	
+	@Override
+	public String toString () {
+		return " IssuerName:"+super.getIssuerName()+" operation:"+operation+
+			   " TotalShares:"+super.getTotalShares()+" SharePrice:"+super.getSharePrice();
 	}
 	
 	private Boolean isValidateBalance(double issuerCash) {

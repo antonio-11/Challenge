@@ -2,24 +2,20 @@ package com.gbm.invest.entity;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-@Service
+@Repository
 public class ResponseBalance {
-	private double cash;
-	private List<IssuersData> issuers;
-	private List<String> bussinessErrors;
-	public double getCash() {
-		return cash;
+	
+	private CurrentBalance currentBalance = new CurrentBalance();
+	
+	private List<String> bussinessErrors;			
+	
+	public CurrentBalance getCurrentBalance() {
+		return currentBalance;
 	}
-	public void setCash(double cash) {
-		this.cash = cash;
-	}
-	public List<IssuersData> getIssuers() {
-		return issuers;
-	}
-	public void setIssuers(List<IssuersData> issuers) {
-		this.issuers = issuers;
+	public void setCurrentBalance(CurrentBalance currentBalance) {
+		this.currentBalance = currentBalance;
 	}
 	public List<String> getBussinessErrors() {
 		return bussinessErrors;
@@ -27,6 +23,4 @@ public class ResponseBalance {
 	public void setBussinessErrors(List<String> bussinessErrors) {
 		this.bussinessErrors = bussinessErrors;
 	}
-	
-	
 }

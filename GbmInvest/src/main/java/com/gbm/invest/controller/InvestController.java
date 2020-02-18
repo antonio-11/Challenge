@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gbm.invest.entity.Balances;
+import com.gbm.invest.entity.BussinesError;
 import com.gbm.invest.entity.Order;
 import com.gbm.invest.entity.ResponseBalance;
 import com.gbm.invest.service.ComputeOrder;
@@ -32,22 +33,27 @@ public class InvestController {
 	private ValidateOrder validateOrder;
 	
 	@Autowired
-	private ResponseBalance responceBalance;
+	private BussinesError error; 
 	
 	@PostMapping("v2/invest")
-	public ResponseEntity<?> processInvest2(@RequestBody Balances balance) throws Exception{						
-		responceBalance.setBussinessErrors(new ArrayList<String>());			
+	public ResponseEntity<?> processInvest2(@RequestBody Balances balance) throws Exception{		
+		error.setError(new ArrayList<String>());
 		
 		for (Order order : balance.getOrders()) {
 			if ( validateOrder.validate(balance.getInitialBalances(),order) ) {
 				computeOrder.compute(balance.getInitialBalances(), order);
 			}
 		}
-		
-		responceBalance.setCash(balance.getInitialBalances().getCash());
-		responceBalance.setIssuers(balance.getInitialBalances().getIssuers());
 				
-		return new ResponseEntity<>(responceBalance, HttpStatus.OK);
+		return new ResponseEntity<>(createResponse(balance), HttpStatus.OK);
+	}
+	
+	private ResponseBalance createResponse(Balances balance) {
+		ResponseBalance response = new ResponseBalance();
+		response.getCurrentBalance().setCash(balance.getInitialBalances().getCash());
+		response.getCurrentBalance().setIssuers(balance.getInitialBalances().getIssuers());
+		response.setBussinessErrors(error.getError());
+		return response;
 	}
 
 }

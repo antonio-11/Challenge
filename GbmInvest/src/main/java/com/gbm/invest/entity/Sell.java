@@ -34,7 +34,7 @@ public class Sell extends Order{
 	}
 	
 	@Override
-	public Boolean validate(InitialBalances initialBalances) {
+	public boolean validate(InitialBalances initialBalances, Order order) {
 		if (!initialBalances.getIssuers().isEmpty() ) {
 			for (IssuersData i: initialBalances.getIssuers()) {
 				// validamos que hayan en existencia para el issuer en cuestion
@@ -44,6 +44,12 @@ public class Sell extends Order{
 			}			
 		} 					
 		return false;
+	}
+	
+	@Override
+	public String toString () {
+		return " IssuerName:"+super.getIssuerName()+" operation:"+operation+
+			   " TotalShares:"+super.getTotalShares()+" SharePrice:"+super.getSharePrice();
 	}
 	
 	private Boolean isValidateTotalShare(int issuerTotalShare) {
