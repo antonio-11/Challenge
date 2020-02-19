@@ -1,9 +1,11 @@
 package com.gbm.invest.entity;
 
+import com.gbm.invest.common.CommonConstant;
+
 public class Sell extends Order{
 	
 	private final String operation = "SELL";
-	private final String errorMessage = "INSUFFICIENT_STOCK";
+	private final String errorMessage = CommonConstant.INVALID_STOCKS;
 	
 	@Override
 	public String getOperation() {

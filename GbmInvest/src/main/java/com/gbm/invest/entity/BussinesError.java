@@ -1,5 +1,6 @@
 package com.gbm.invest.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,8 @@ public class BussinesError {
 		this.error = error;
 	}
 	
-	
+	public BussinesError() {
+		error = new ArrayList<String>();
+	}
 	
 }

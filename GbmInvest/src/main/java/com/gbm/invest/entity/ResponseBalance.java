@@ -1,16 +1,22 @@
 package com.gbm.invest.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
-@Repository
-public class ResponseBalance {
+public class ResponseBalance {		
 	
-	private CurrentBalance currentBalance = new CurrentBalance();
+	private CurrentBalance currentBalance;
 	
-	private List<String> bussinessErrors;			
+	private List<String> bussinessErrors;	
 	
+	public ResponseBalance(Balances balance, BussinesError error) {
+		currentBalance = new CurrentBalance();
+		bussinessErrors = new ArrayList<String>();
+		currentBalance.setCash(balance.getInitialBalances().getCash());
+		currentBalance.setIssuers(balance.getInitialBalances().getIssuers());
+		bussinessErrors.addAll(error.getError());
+		//error.getError().clear();
+	}
 	public CurrentBalance getCurrentBalance() {
 		return currentBalance;
 	}

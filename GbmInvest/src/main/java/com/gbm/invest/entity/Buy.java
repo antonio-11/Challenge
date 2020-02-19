@@ -1,9 +1,11 @@
 package com.gbm.invest.entity;
 
+import com.gbm.invest.common.CommonConstant;
+
 public class Buy extends Order {
 	
 	private final String operation = "BUY";
-	private final String errorMessage = "INSUFFICIENT_BALANCE";
+	private final String errorMessage = CommonConstant.INVALID_BALANCE;
 	
 	@Override
 	public String getOperation() {
