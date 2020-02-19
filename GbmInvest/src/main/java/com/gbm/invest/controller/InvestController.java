@@ -36,15 +36,16 @@ public class InvestController {
 	private BussinesError error; 
 	
 	@PostMapping("v2/invest")
-	public ResponseEntity<?> processInvest2(@RequestBody Balances balance) throws Exception{		
+	public ResponseEntity<?> processInvest2(@RequestBody Balances balance) {				
 		error.setError(new ArrayList<String>());
+		validateOrder.initValidation();
 		
 		for (Order order : balance.getOrders()) {
 			if ( validateOrder.validate(balance.getInitialBalances(),order) ) {
 				computeOrder.compute(balance.getInitialBalances(), order);
 			}
 		}
-				
+	
 		return new ResponseEntity<>(createResponse(balance), HttpStatus.OK);
 	}
 	

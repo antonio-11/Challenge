@@ -38,8 +38,8 @@ public class Sell extends Order{
 		if (!initialBalances.getIssuers().isEmpty() ) {
 			for (IssuersData i: initialBalances.getIssuers()) {
 				// validamos que hayan en existencia para el issuer en cuestion
-				if (i.getIssuerName().contentEquals(super.getIssuerName()) ) {
-					return isValidateTotalShare(i.getTotalShares() );
+				if (i.getIssuerName().equalsIgnoreCase(order.getIssuerName()) ) {
+					return ( i.getTotalShares()>= super.getTotalShares() ) ? true: false ;
 				}
 			}			
 		} 					
@@ -50,12 +50,6 @@ public class Sell extends Order{
 	public String toString () {
 		return " IssuerName:"+super.getIssuerName()+" operation:"+operation+
 			   " TotalShares:"+super.getTotalShares()+" SharePrice:"+super.getSharePrice();
-	}
-	
-	private Boolean isValidateTotalShare(int issuerTotalShare) {
-		if ( issuerTotalShare >= super.getTotalShares()  ? true: false )
-			return true;		
-		return false;
 	}
 
 }

@@ -3,8 +3,6 @@ package com.gbm.invest.entity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.springframework.stereotype.Repository;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -18,18 +16,17 @@ import com.gbm.invest.validation.IValidate;
 	@JsonSubTypes.Type(value = Buy.class, name="BUY"),
 	@JsonSubTypes.Type(value = Sell.class, name="SELL")
 })
-@Repository
 public abstract class Order implements ICalculate, IValidate{
 	
 	@JsonProperty("timestamp")
 	private long timestamp;
-		
+	
 	@JsonProperty("operation")
 	private String operation;
-
+	
 	@JsonProperty("IssuerName")
 	private String IssuerName;
-		
+	
 	@JsonProperty("TotalShares")
 	private int TotalShares;
 	

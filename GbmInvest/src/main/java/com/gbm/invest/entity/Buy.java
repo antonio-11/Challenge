@@ -1,6 +1,5 @@
 package com.gbm.invest.entity;
 
-
 public class Buy extends Order {
 	
 	private final String operation = "BUY";
