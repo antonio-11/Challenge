@@ -1,5 +1,5 @@
 # Challenge
-Consideraciones de INPUT validos
+La url para probar la app es: https://demoinvest.herokuapp.com/invest.html Sólo hay que ingresar el input y dar al boton de Process
 
 INPUT
 
@@ -137,7 +137,7 @@ OUTPUT
 }
 
 # Soporte para compras por primera vez
-Se agrega a la lista de issuers
+Si la orden es una compra, no importa que no tengas stock, se agrega a la lista de issuers.
 
 INPUT
 
@@ -183,6 +183,4 @@ OUTPUT
     "bussinessErrors": []
 }
 
-# Proximamente
-
-Aun falta considerar ordenes duplicadas, formato de respuesta, guardado en la base de datos, etc.
+*Se ha implemenatado operaciones duplicadas y el formato de respuesta 
