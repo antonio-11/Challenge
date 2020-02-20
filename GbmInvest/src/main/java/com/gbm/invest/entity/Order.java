@@ -2,6 +2,7 @@ package com.gbm.invest.entity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -90,6 +91,7 @@ public abstract class Order implements ICalculate, IValidate{
 	
 	public String getTimeStringTimeStamp() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT-06:00"));
 		return dateFormat.format(getCustomDateTimestamp()) ;
 	}	
 	
