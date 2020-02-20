@@ -16,6 +16,7 @@ import com.gbm.invest.entity.BussinesError;
 import com.gbm.invest.entity.Order;
 import com.gbm.invest.entity.ResponseBalance;
 import com.gbm.invest.service.ComputeOrder;
+import com.gbm.invest.service.OrderCache;
 import com.gbm.invest.service.ValidateBalance;
 import com.gbm.invest.service.ValidateOrder;
 
@@ -39,6 +40,9 @@ public class InvestController {
 	@Autowired
 	private BussinesError error;
 	
+	@Autowired
+	private OrderCache orderCache;
+	
 	@GetMapping(value="/status")
 	String checkStatus() {
 		return "ok";
@@ -57,6 +61,12 @@ public class InvestController {
 		}
 	
 		return new ResponseEntity<>(new ResponseBalance(balance, error), HttpStatus.OK);
+	}
+	
+	@GetMapping(value="/clear")
+	public String processInvest2() {		
+		orderCache.getCache().clear();
+		return "cleared";
 	}
 
 }

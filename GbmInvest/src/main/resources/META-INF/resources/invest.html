@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="css/bootstrap.min.css" rel="stylesheet"> 
+  </head>
+  <body>
+
+    <div class="container">
+      <div>
+          <h2>Invest</h2>
+      </div>
+      
+      <div class="alert alert-danger" id="msg" style="display:none">
+        <strong>Error!</strong> This field can't be empty
+      </div>
+      <div class="input-group mb-3">
+        <textarea id="in_data" type="text" class="form-control" placeholder="Ingres your order..." aria-label="Ingres your order..." ></textarea>
+        <div class="input-group-append">
+          <button id="process_btn" class="btn btn-outline-secondary" type="button">Process</button>
+        </div>
+      </div>
+      
+      <div class="input-group mb-3">
+        <textarea id="out_data" type="text" class="form-control" disabled ></textarea>
+        <div class="input-group-append">
+          <button id="convert_btn" class="btn btn-outline-secondary" type="button">Convert</button>
+        </div>
+      </div>
+    </div> 
+
+    <script src="jquery/jquery.min.js"></script>
+    <script>
+      $(function () {
+
+        $('#process_btn').click(function () {
+        	$('#out_data').val('')
+            var body = $('#in_data').val()
+            if (body.trim().length <= 0 )
+              $('#msg').show()
+            else{
+              $('#msg').hide()
+              $.ajax({
+                  url: "https://challengeinvest.herokuapp.com/v2/invest",
+                  contentType: "application/json",
+                  data: body,
+                  dataType: "json",
+                  type: 'POST',
+                  success: function (response) {
+                      var result = JSON.stringify(response);
+                      console.log(result)
+                      $('#out_data').val(result)
+                  }
+              });
+          }
+        });
+    });
+    </script>    
+  </body>
+</html>
+
