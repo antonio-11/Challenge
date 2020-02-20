@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,8 @@ import com.gbm.invest.service.ValidateBalance;
 import com.gbm.invest.service.ValidateOrder;
 
 @RestController
-@RequestMapping(value="/", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin
+@RequestMapping(value="/v2")
 public class InvestController {
 	
 	//@Autowired
@@ -37,7 +39,13 @@ public class InvestController {
 	@Autowired
 	private BussinesError error;
 	
-	@PostMapping("v2/invest")
+	@GetMapping(value="/status")
+	String checkStatus() {
+		return "ok";
+	}
+	
+	@PostMapping(value="/invest", produces=MediaType.APPLICATION_JSON_VALUE, 
+			                      consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> processInvest2(@RequestBody Balances balance) {
 		error.getError().clear();
 		
